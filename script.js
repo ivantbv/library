@@ -1,5 +1,5 @@
 let myLibrary = [];
-let btnClicked = 0;
+let btnClicked = false;
 const bookAdd = document.querySelector('.add');
 
 const container = document.querySelector('#book-card');
@@ -29,10 +29,10 @@ function openForm() {
   let addRead = document.querySelectorAll('input[name="read"]')
   let selectedValue
 
+
+
 function addBookToLibr() {
     bookAdd.addEventListener('click', function() {
-
-        //for (let i = 0; i <= 4; i++) {
            
             for (const radioBtn of addRead) {
                 if (radioBtn.checked) {
@@ -40,38 +40,56 @@ function addBookToLibr() {
                     break;
                 }
             }
-
-           let inf = new Book(`${addTitle.value}`, `${addAuthor.value}`, `${addPages.value}`, `${selectedValue}`);
+           let inf = new Book(`Book title: ${addTitle.value}`, `Author: ${addAuthor.value}`, `Pages Count: ${addPages.value}`, `Read status: ${selectedValue}`);
 
            myLibrary.push(inf);
-           console.log(inf);
-        console.log(myLibrary);
-        console.log(inf.info)
-        btnClicked = 1;
+           console.log(inf.info)
+           btnClicked = true;
 
         // for (let property in inf) {
         //     console.log(property + '=' + inf[property])
         // }
 
         function displayBooks() {
-            if (myLibrary.length > 0) {
-
+            if (addAuthor.value != '' || addTitle.value != '' || addPages.value != '') {
                     const div = document.createElement('div');
                     div.className += 'book-divs'
                     div.textContent = `${inf.title} | ${inf.author} | ${inf.pages} | ${inf.read}`;
-                    console.log(div);
                     container.appendChild(div);
+                    
+                    const removeBtn = document.createElement('button')
+                    removeBtn.className += 'removeBtn'
+                    removeBtn.textContent = 'Remove Book';
+                    div.appendChild(removeBtn);
+
+                    removeBtn.addEventListener('click', (e) => {
+                       div.removeChild(div.firstChild)
+                       div.removeChild(removeBtn);
+                       div.remove();
+                    })
+                    
         }
+
         }
         displayBooks();
+
+        if (addTitle.value.length > 0 || addAuthor.value.length > 0 || addPages.value.length > 0) {
+            addAuthor.value = '';
+            addTitle.value = '';
+            addPages.value = '';
+        }
+
+   
     })
-    //can take user's input
     //can store the new Book object into myLibrary
 }
 addBookToLibr();
 
-// if (btnClicked > 0) {
-//     addTitle.value = '';
-//     addAuthor.value = '';
-// }
 
+// function btnDisabled(btn) {
+//    //return  !addTitle.value.length || !addAuthor.value.length || !addPages.value.length ?   bookAdd.disabled = true :  bookAdd.disabled = false;
+//     if (addTitle.value.length > 0 || addAuthor.value.length > 0 || addPages.value.length > 0) { 
+//        btn.disabled = false;
+//     }
+//     }
+//     btnDisabled(bookAdd);

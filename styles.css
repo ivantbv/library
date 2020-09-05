@@ -1,6 +1,10 @@
-.book-divs {
-    border: 2px solid black;
+body {
+  display: flex;
 }
+
+/* .book-divs {
+    border: 2px solid black;
+} */
 
 h1 {
     padding: 0;
