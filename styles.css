@@ -1,11 +1,17 @@
 body {
   display: flex;
+  flex-wrap: wrap;
+}
+
+#wrapper {
+  display: flex;
+  height: 200px;
+  width: 300px;
 }
 
 /* .book-divs {
     border: 2px solid black;
 } */
-
 
 h1 {
     padding: 0;
@@ -60,8 +66,7 @@ h1 {
     border: none;
     background: #f1f1f1;
   }
-  
-  /* When the inputs get focus, do something */
+
   .form-container input[type=text]:focus, .form-container input[type=number]:focus, .form-container input[type=password]:focus {
     background-color: #ddd;
     outline: none;
@@ -72,8 +77,7 @@ h1 {
       margin: 5px 0 7px 0;
 
   }
-  
-  /* Set a style for the submit/login button */
+
   .form-container .btn {
     background-color: #1d6fb3;
     color: white;
@@ -86,13 +90,96 @@ h1 {
     opacity: 0.8;
     font-size: 16px;
   }
-  
-  /* Add a red background color to the cancel button */
+
   .form-container .cancel {
     background-color: rgb(180, 82, 82);
   }
-  
-  /* Add some hover effects to buttons */
+
   .form-container .btn:hover, .open-button:hover {
     opacity: 1;
   }
+
+
+  input {
+    margin: auto; 
+    padding: 3px 6px; 
+    font-family: sans-serif; 
+    font-weight: bold; 
+    font-size: 95%; 
+    outline: 0; 
+    border: 1px solid #444; 
+    background: #f4f4f4; color: black; 
+    border-radius: 1px; 
+    /* text-align: center;  */
+    box-shadow: 0 3px 9px #bbb, inset 0 0 0 1px white;}
+input:focus {
+  background: white;
+}
+
+.styleCards {
+  box-shadow: 0 3px 9px #bbb, inset 0 0 0 1px white;
+  height: 185px;
+  background-color: #88b4d84d;
+  font-size: large;
+  width: 299px;
+  padding: 18px; margin: 12px;
+
+  border-radius: 9px; border: 2px rgba(216, 112, 147, 0.637) solid; text-align: center;
+}
+
+.book-divs {
+
+  padding-top: 9px;
+  font-family: monospace;
+  font-weight: bold;
+}
+.toBeStyled {  
+  border-bottom: 2px solid #72bfd2;
+  font-weight: bold;
+  padding-bottom: 8px;
+  font-size: 20px;
+}
+
+.toggleBtn {
+  border: none;
+  box-shadow:inset 0px -3px 7px 0px #7ec2e2bb;
+  background-color:transparent;
+  border-radius: 5px;
+	display:inline-block;
+	cursor:pointer;
+	color:#0e173b;
+	font-family:Arial;
+	font-size:12px;
+	padding:5px 16px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #3a4e8ad0;
+}
+
+.toggleBtn:hover {
+	background-color:transparent;
+}
+
+.toggleBtn:active {
+	position:relative;
+  top:1px;
+  border: none;
+  outline: none;
+}
+
+.statusRead {
+  font-family: monospace;
+    padding: 10px;
+}
+
+.removeBtn {
+  color: grey;
+  display: flex; font-size: larger; 
+  position: relative; left: 10px; top: -159px; border: none; 
+  cursor: pointer; background: none; color: inherit; 
+}
+
+.removeBtn:hover {
+  background: rgba(238, 74, 59, 0.89);
+  border-radius: 5px;
+  color: white;
+}
