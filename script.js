@@ -42,8 +42,14 @@ function addBookToLibr() {
 
            myLibrary.push(inf);
 
-        // for (let property in inf) {
-        //     console.log(property + '=' + inf[property])
+        // if (selectedValue == 'Read') {
+
+        //    divRead.style.color = '#bb2b00'
+        // } else if (selectedValue == 'Not read') {
+
+        //   divRead.style.color = '#ffdc31';
+        // } else if (selectedValue == 'In progress') {
+        //     divRead.style.color = '#31e61b'
         // }
 
         function displayBooks() {
@@ -52,18 +58,22 @@ function addBookToLibr() {
                     const divAuthor = document.createElement('div');
                     const divPages = document.createElement('div');
                     const divRead = document.createElement('div');
+                    const nextBtn = document.createElement('button');
+
+                    nextBtn.textContent = 'Notes';
+                    
 
                     const bookCard = document.createElement('div');
                     bookCard.classList.add('styleCards');
 
                     div.className += 'toBeStyled'
-                    div.textContent = `${inf.title.toUpperCase()}` 
+                    div.textContent = `${inf.title.toUpperCase()}`
                     
                     divAuthor.className += 'book-divs';
-                    divAuthor.textContent = `${titleCase(inf.author)}` 
+                    divAuthor.textContent = `${titleCase(inf.author)}`
                     
-                    divPages.className += 'book-divs'
-                    divPages.textContent = `${inf.pages}` 
+                    divPages.className += 'pages'
+                    divPages.textContent = `${inf.pages}`
                     
                     //divRead.className += 'book-divs'; 
                     divRead.className += 'statusRead'
@@ -73,13 +83,8 @@ function addBookToLibr() {
                     bookCard.appendChild(divAuthor);
                     bookCard.appendChild(divPages);
                     bookCard.appendChild(divRead);
+                    bookCard.appendChild(nextBtn);
                     container.appendChild(bookCard);
-
-                    // container.appendChild(div);
-                    // container.appendChild(divAuthor);
-                    // container.appendChild(divPages);
-                    // container.appendChild(divRead);
-
                     
                     const removeBtn = document.createElement('button')
                     const toggleBtn = document.createElement('button');
@@ -92,6 +97,25 @@ function addBookToLibr() {
 
                     container.appendChild(removeBtn);
                     container.append(toggleBtn);
+
+                    const notesArea = document.createElement('textarea')
+                    notesArea.placeholder = 'Add notes,current page, memorable moments etc...';
+                    
+                    notesArea.classList.toggle('removed')
+                    container.appendChild(notesArea);
+                    nextBtn.addEventListener('click', () => {
+                        toggleBtn.classList.toggle('removed');
+                        //bookCard.classList.add('removed')
+                        div.classList.toggle('removed');
+                        divAuthor.classList.toggle('removed');
+                        divPages.classList.toggle('removed');
+                        divRead.classList.toggle('removed');
+
+                        notesArea.classList.toggle('notes');
+                        notesArea.classList.toggle('removed');
+                    
+                       // removeBtn.classList.toggle('removed')
+                    })
 
                     blankDiv.style.cssText = 'display: flex; align-items: center;'
                     //removeBtn.style.cssText = ''
@@ -115,10 +139,13 @@ function addBookToLibr() {
                     toggleBtn.addEventListener('click', () => {
                         if (divRead.textContent == 'Status: Read') {
                             divRead.textContent = 'Status: Not read';
+                           // divRead.style.color = '#bb2b00'
                         } else if (divRead.textContent == 'Status: Not read') {
                             divRead.textContent = 'Status: In progress'
+                          //divRead.style.color = '#ffdc31';
                         } else if (divRead.textContent == 'Status: In progress') {
                             divRead.textContent = 'Status: Read'
+                            //divRead.style.color = '#31e61b'
                         }
                     })  
         }

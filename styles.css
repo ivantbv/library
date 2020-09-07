@@ -1,20 +1,19 @@
 body {
-  display: flex;
-  flex-wrap: wrap;
+  /* display: flex;
+  flex-wrap: wrap; */
+  /* text-align: center; */
+
+  display: grid;
 }
 
 #wrapper {
   display: flex;
-  height: 200px;
+  height: 500px;
   width: 300px;
-}
 
-/* .book-divs {
-    border: 2px solid black;
-} */
-
-h1 {
-    padding: 0;
+  max-width: 70em;
+  text-align: left;
+  margin: 0 auto;
 }
 
 .open-button {
@@ -119,21 +118,30 @@ input:focus {
 .styleCards {
   box-shadow: 0 3px 9px #bbb, inset 0 0 0 1px white;
   height: 185px;
-  background-color: #88b4d84d;
+  /* background-color: #88b4d84d; */
+  background-color: #2f7db1;
   font-size: large;
   width: 299px;
   padding: 18px; margin: 12px;
 
-  border-radius: 9px; border: 2px rgba(216, 112, 147, 0.637) solid; text-align: center;
+  border-radius: 4px; border: 2px rgba(216, 112, 147, 0.637) solid; text-align: center;
 }
 
 .book-divs {
-
+  color: rgb(230, 221, 221);
   padding-top: 9px;
+  padding-bottom: 6px;
   font-family: monospace;
   font-weight: bold;
 }
+
+.pages{
+  color: rgb(230, 221, 221);
+    padding: 9px;
+    font-size: 15px;
+  }
 .toBeStyled {  
+  color: rgb(230, 221, 221);
   border-bottom: 2px solid #72bfd2;
   font-weight: bold;
   padding-bottom: 8px;
@@ -141,22 +149,25 @@ input:focus {
 }
 
 .toggleBtn {
+  
   border: none;
   box-shadow:inset 0px -3px 7px 0px #7ec2e2bb;
-  background-color:transparent;
-  border-radius: 5px;
+  /* background-color:transparent; */
+  border-radius: 3px;
 	display:inline-block;
 	cursor:pointer;
-	color:#0e173b;
+	/* color:#0e173b; */
 	font-family:Arial;
 	font-size:12px;
 	padding:5px 16px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #3a4e8ad0;
+	/* text-decoration:none; */
+  text-shadow:0px 1px 0px #3b3f4bd0;
+  color: rgb(105, 99, 99);
 }
 
 .toggleBtn:hover {
-	background-color:transparent;
+  background-color:transparent;
+  color: rgb(245, 245, 245);
 }
 
 .toggleBtn:active {
@@ -169,17 +180,43 @@ input:focus {
 .statusRead {
   font-family: monospace;
     padding: 10px;
+    color: rgb(230, 221, 221);
 }
 
 .removeBtn {
-  color: grey;
+  color: white;
   display: flex; font-size: larger; 
   position: relative; left: 10px; top: -159px; border: none; 
-  cursor: pointer; background: none; color: inherit; 
+  cursor: pointer; 
+  background: none;
+  font-family:monospace;
 }
 
 .removeBtn:hover {
   background: rgba(238, 74, 59, 0.89);
-  border-radius: 5px;
+  border-radius: 3px;
+  color: black;
+}
+
+.removed {
+  visibility: hidden; 
+  /* display: none; */
+}
+
+.notes {
+  /* display: visible; */
+  position: relative;
+  top: -230px;
+    left: -28px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: rgb(255, 255, 255);
+
+  width: 219px;
+    height: 112px;
+    resize: none;
+}
+.notes::placeholder {
   color: white;
 }
