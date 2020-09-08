@@ -59,12 +59,17 @@ function addBookToLibr() {
                     const divPages = document.createElement('div');
                     const divRead = document.createElement('div');
                     const nextBtn = document.createElement('button');
-
-                    nextBtn.textContent = 'Notes';
+                    nextBtn.classList.add('nextPage');
                     
-
+                    //  const nextBtn = document.getElementsByTagName('svg')
+                    
+                    
+                    //nextBtn.style.cssText = 'visibility: visible;'
+                   nextBtn.textContent = '⤷';
+                  
                     const bookCard = document.createElement('div');
                     bookCard.classList.add('styleCards');
+                    bookCard.classList.add('paper');
 
                     div.className += 'toBeStyled'
                     div.textContent = `${inf.title.toUpperCase()}`
@@ -99,10 +104,11 @@ function addBookToLibr() {
                     container.append(toggleBtn);
 
                     const notesArea = document.createElement('textarea')
-                    notesArea.placeholder = 'Add notes,current page, memorable moments etc...';
+                    notesArea.placeholder = 'Add notes, current page etc...';
                     
                     notesArea.classList.toggle('removed')
                     container.appendChild(notesArea);
+
                     nextBtn.addEventListener('click', () => {
                         toggleBtn.classList.toggle('removed');
                         //bookCard.classList.add('removed')
@@ -113,14 +119,12 @@ function addBookToLibr() {
 
                         notesArea.classList.toggle('notes');
                         notesArea.classList.toggle('removed');
-                    
-                       // removeBtn.classList.toggle('removed')
                     })
 
                     blankDiv.style.cssText = 'display: flex; align-items: center;'
                     //removeBtn.style.cssText = ''
                     //bookCard.style.cssText = ''
-                toggleBtn.style.cssText = 'position: relative; top: -80px; left: 132px;'
+                toggleBtn.style.cssText = 'position: relative;'
                     removeBtn.addEventListener('click', () => {
                     //    div.removeChild(div.firstChild)
                     //    div.removeChild(removeBtn);
