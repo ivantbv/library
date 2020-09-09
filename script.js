@@ -11,9 +11,9 @@ function Book(title, author, pages, read) {
       this.read = read;
   }
 
-  Book.prototype.info = function() {
-    return `${this.title} ${this.author} ${this.pages} ${this.read}`
-}
+//   Book.prototype.info = function() {
+//     return `${this.title} ${this.author} ${this.pages} ${this.read}`
+// }
 
 function openForm() {
     document.getElementById("myForm").style.display = "block";
@@ -84,13 +84,6 @@ function addBookToLibr() {
                     divRead.className += 'statusRead'
                     divRead.textContent = `${inf.read}`;
 
-                    bookCard.appendChild(div);
-                    bookCard.appendChild(divAuthor);
-                    bookCard.appendChild(divPages);
-                    bookCard.appendChild(divRead);
-                    bookCard.appendChild(nextBtn);
-                    container.appendChild(bookCard);
-                    
                     const removeBtn = document.createElement('button')
                     const toggleBtn = document.createElement('button');
                     toggleBtn.textContent = 'Toggle Status';
@@ -98,16 +91,29 @@ function addBookToLibr() {
                     removeBtn.className += 'removeBtn'
                     removeBtn.textContent = 'X';
                     const blankDiv = document.createElement('div');
-                    container.appendChild(blankDiv);
 
-                    container.appendChild(removeBtn);
-                    container.append(toggleBtn);
+                    bookCard.appendChild(div);
+                    bookCard.appendChild(divAuthor);
+                    bookCard.appendChild(divPages);
+                    bookCard.appendChild(divRead);
+                    bookCard.appendChild(nextBtn);
+                    bookCard.appendChild(removeBtn)
+                    bookCard.append(toggleBtn);
+                    container.appendChild(blankDiv);
 
                     const notesArea = document.createElement('textarea')
                     notesArea.placeholder = 'Add notes, current page etc...';
-                    
                     notesArea.classList.toggle('removed')
-                    container.appendChild(notesArea);
+                    bookCard.appendChild(notesArea);
+                   
+                    container.appendChild(bookCard);
+                    
+                   
+
+                    // container.appendChild(removeBtn);
+                    // container.append(toggleBtn);
+
+                
 
                     nextBtn.addEventListener('click', () => {
                         toggleBtn.classList.toggle('removed');
@@ -118,8 +124,28 @@ function addBookToLibr() {
                         divRead.classList.toggle('removed');
 
                         notesArea.classList.toggle('notes');
-                        notesArea.classList.toggle('removed');
+                        notesArea.classList.toggle('removed');                        
                     })
+
+                    notesArea.addEventListener('input', (e) => {
+                      notesArea.textContent = e.target.value;
+                      
+                   
+                      const storedItem = localStorage.getItem('library')
+                      const saveToLocalStorage = () => {
+                        localStorage.setItem('library', notesArea.textContent)
+                      }
+                     saveToLocalStorage();
+  
+                      if (notesArea) {
+                        notesArea.textContent = storedItem;
+                       }
+                       //Need to add a save button so the text input can be 
+                       //saved in localStorage
+                    })
+
+              
+
 
                     blankDiv.style.cssText = 'display: flex; align-items: center;'
                     //removeBtn.style.cssText = ''
@@ -162,6 +188,8 @@ function addBookToLibr() {
             addTitle.value = '';
             addPages.value = '';
         }
+
+  
     })
 }
 addBookToLibr();
@@ -183,6 +211,7 @@ function maxLengthCheck(object) {
     }
   }
 
+    //capitalize each first letter on every word (for the authors)
   function titleCase(str) {
     let splitStr = str.toLowerCase().split(' ');
     for (let i = 0; i < splitStr.length; i++) {
@@ -190,6 +219,8 @@ function maxLengthCheck(object) {
     }
     return splitStr.join(' '); 
  }
+
+
 
 // function btnDisabled(btn) {
 //    //return  !addTitle.value.length || !addAuthor.value.length || !addPages.value.length ?   bookAdd.disabled = true :  bookAdd.disabled = false;
