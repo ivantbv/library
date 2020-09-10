@@ -1,4 +1,4 @@
-const myLibrary = [];
+let myLibrary = [];
 let btnClicked = false;
 const bookAdd = document.querySelector('.add');
 
@@ -80,7 +80,7 @@ function addBookToLibr() {
                     //  const nextBtn = document.getElementsByTagName('svg')
         
                     //nextBtn.style.cssText = 'visibility: visible;'
-                   nextBtn.textContent = '⤷';
+                   nextBtn.textContent = '>';
                   
                     const bookCard = document.createElement('div');
                     bookCard.classList.add('styleCards');
@@ -134,15 +134,14 @@ function addBookToLibr() {
                         divRead.classList.toggle('removed');
 
                         notesArea.classList.toggle('notes');
-                        notesArea.classList.toggle('removed'); 
-                        saveNotesBtn.classList.toggle('removed');                       
+                        notesArea.classList.toggle('removed');                      
                     })                    
 
                     blankDiv.style.cssText = 'display: flex; align-items: center;'
                     //removeBtn.style.cssText = ''
                     //bookCard.style.cssText = ''
                 toggleBtn.style.cssText = 'position: relative;'
-                    removeBtn.addEventListener('click', () => {
+                    removeBtn.addEventListener('click', (e) => {
                     //    div.removeChild(div.firstChild)
                     //    div.removeChild(removeBtn);
                        div.remove();
@@ -154,6 +153,8 @@ function addBookToLibr() {
 
                        toggleBtn.remove();
                        removeBtn.remove()
+                       
+                      myLibrary = myLibrary.filter(book => book.title !== div.innerText && book.author !== divAuthor.innerText);
                        //container.style.cssText = '';
                     });
 
