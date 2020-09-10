@@ -181,7 +181,9 @@ function addBookToLibr() {
           localStorage.setItem('lib', JSON.stringify(myLibrary));
         
           const retrieveData = localStorage.getItem('lib')
-            return stringed
+        
+          const stringed = JSON.parse(retrieveData);
+              return stringed
         }
         saveToStorage();
 
