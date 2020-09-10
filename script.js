@@ -43,7 +43,6 @@ function addBookToLibr() {
            myLibrary.push(inf);
 
         // if (selectedValue == 'Read') {
-
         //    divRead.style.color = '#bb2b00'
         // } else if (selectedValue == 'Not read') {
 
@@ -60,10 +59,26 @@ function addBookToLibr() {
                     const divRead = document.createElement('div');
                     const nextBtn = document.createElement('button');
                     nextBtn.classList.add('nextPage');
+
+
+                    // notesArea.addEventListener('input', (e) => {
+                    //   notesArea.textContent = e.target.value;
+                      
+                    //   const storedItem = localStorage.getItem('library')
+                    //   const saveToLocalStorage = () => {
+                    //     localStorage.setItem('library', notesArea.textContent)
+                    //   }
+                    //  saveToLocalStorage();
+  
+                    //   if (notesArea) {
+                    //     notesArea.textContent = storedItem;
+                    //    }
+                    //   saveNotesBtn.addEventListener('click', saveToLocalStorage)
+                       
+                    // });
                     
                     //  const nextBtn = document.getElementsByTagName('svg')
-                    
-                    
+        
                     //nextBtn.style.cssText = 'visibility: visible;'
                    nextBtn.textContent = '⤷';
                   
@@ -105,15 +120,13 @@ function addBookToLibr() {
                     notesArea.placeholder = 'Add notes, current page etc...';
                     notesArea.classList.toggle('removed')
                     bookCard.appendChild(notesArea);
-                   
-                    container.appendChild(bookCard);
-                    
-                   
 
-                    // container.appendChild(removeBtn);
-                    // container.append(toggleBtn);
-
-                
+                    const saveNotesBtn = document.createElement('button');
+                    saveNotesBtn.textContent = 'Save Notes';
+                    saveNotesBtn.classList.toggle('removed');
+                    bookCard.appendChild(saveNotesBtn);
+                   
+                    container.appendChild(bookCard);                
 
                     nextBtn.addEventListener('click', () => {
                         toggleBtn.classList.toggle('removed');
@@ -124,28 +137,9 @@ function addBookToLibr() {
                         divRead.classList.toggle('removed');
 
                         notesArea.classList.toggle('notes');
-                        notesArea.classList.toggle('removed');                        
-                    })
-
-                    notesArea.addEventListener('input', (e) => {
-                      notesArea.textContent = e.target.value;
-                      
-                   
-                      const storedItem = localStorage.getItem('library')
-                      const saveToLocalStorage = () => {
-                        localStorage.setItem('library', notesArea.textContent)
-                      }
-                     saveToLocalStorage();
-  
-                      if (notesArea) {
-                        notesArea.textContent = storedItem;
-                       }
-                       //Need to add a save button so the text input can be 
-                       //saved in localStorage
-                    })
-
-              
-
+                        notesArea.classList.toggle('removed'); 
+                        saveNotesBtn.classList.toggle('removed');                       
+                    })                    
 
                     blankDiv.style.cssText = 'display: flex; align-items: center;'
                     //removeBtn.style.cssText = ''
@@ -183,16 +177,24 @@ function addBookToLibr() {
         }
         displayBooks();
 
+        function saveToStorage() {
+          localStorage.setItem('lib', JSON.stringify(myLibrary));
+        
+          const retrieveData = localStorage.getItem('lib')
+            return stringed
+        }
+        saveToStorage();
+
         if (addTitle.value.length > 0 && addAuthor.value.length > 0 && addPages.value.length > 0) {
             addAuthor.value = '';
             addTitle.value = '';
             addPages.value = '';
         }
-
-  
     })
 }
 addBookToLibr();
+
+
 
 //cap max length on number input
 function maxLengthCheck(object) {
