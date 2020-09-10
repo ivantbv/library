@@ -120,13 +120,10 @@ function addBookToLibr() {
                     notesArea.placeholder = 'Add notes, current page etc...';
                     notesArea.classList.toggle('removed')
                     bookCard.appendChild(notesArea);
-
-                    const saveNotesBtn = document.createElement('button');
-                    saveNotesBtn.textContent = 'Save Notes';
-                    saveNotesBtn.classList.toggle('removed');
-                    bookCard.appendChild(saveNotesBtn);
                    
-                    container.appendChild(bookCard);                
+                    container.appendChild(bookCard); 
+                    
+                    localStorage.setItem('lib', container)
 
                     nextBtn.addEventListener('click', () => {
                         toggleBtn.classList.toggle('removed');
@@ -172,16 +169,14 @@ function addBookToLibr() {
                             //divRead.style.color = '#31e61b'
                         }
                     })  
-        }
-
+              }
         }
         displayBooks();
 
         function saveToStorage() {
-          localStorage.setItem('lib', JSON.stringify(myLibrary));
+          localStorage.setItem('lib', JSON.stringify(inf));
         
           const retrieveData = localStorage.getItem('lib')
-        
           const stringed = JSON.parse(retrieveData);
               return stringed
         }

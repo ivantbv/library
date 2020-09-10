@@ -163,6 +163,14 @@ input:focus {
   font-weight: bold;
 }
 
+#book-card {
+  display: flex;
+  flex-wrap: wrap;
+   /* width: 800px;  */
+  justify-content: center;
+  align-items: center;
+}
+
 .pages{
   color: rgb(230, 221, 221);
   padding: 8px;
