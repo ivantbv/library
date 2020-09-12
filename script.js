@@ -38,7 +38,7 @@ function addBookToLibr() {
                     break;
                 }
             }
-           let inf = new Book(`${addTitle.value}`, `by ${addAuthor.value}`, `${addPages.value} pages`, `Status: ${selectedValue}`);
+           inf = new Book(`${addTitle.value}`, `by ${addAuthor.value}`, `${addPages.value} pages`, `Status: ${selectedValue}`);
 
            myLibrary.push(inf);
 
@@ -51,7 +51,7 @@ function addBookToLibr() {
         //     divRead.style.color = '#31e61b'
         // }
 
-        function displayBooks() {
+        function displayBooks(obj) {
             if (addAuthor.value != '' && addTitle.value != '' && addPages.value != '') {
                     const div = document.createElement('div');
                     const divAuthor = document.createElement('div');
@@ -59,7 +59,6 @@ function addBookToLibr() {
                     const divRead = document.createElement('div');
                     const nextBtn = document.createElement('button');
                     nextBtn.classList.add('nextPage');
-
 
                     // notesArea.addEventListener('input', (e) => {
                     //   notesArea.textContent = e.target.value;
@@ -74,7 +73,6 @@ function addBookToLibr() {
                     //     notesArea.textContent = storedItem;
                     //    }
                     //   saveNotesBtn.addEventListener('click', saveToLocalStorage)
-                       
                     // });
                     
                     //  const nextBtn = document.getElementsByTagName('svg')
@@ -123,7 +121,7 @@ function addBookToLibr() {
                    
                     container.appendChild(bookCard); 
                     
-                    localStorage.setItem('lib', container)
+                    //localStorage.setItem('lib', container)
 
                     nextBtn.addEventListener('click', () => {
                         toggleBtn.classList.toggle('removed');
@@ -138,30 +136,22 @@ function addBookToLibr() {
                     })                    
 
                     blankDiv.style.cssText = 'display: flex; align-items: center;'
-                    //removeBtn.style.cssText = ''
-                    //bookCard.style.cssText = ''
                 toggleBtn.style.cssText = 'position: relative;'
                     removeBtn.addEventListener('click', (e) => {
-                    //    div.removeChild(div.firstChild)
-                    //    div.removeChild(removeBtn);
-                   // myLibrary = myLibrary.filter(book => book.title !== div && book.author !== divAuthor.innerText);
+                  // myLibrary = myLibrary.filter(book => book.title !== div && book.author !== divAuthor.innerText);
                    
-                   //myLibrary = myLibrary.filter(i => i.name === e.target);
-
-                  myLibrary = myLibrary.reduce((p,c) => (c.title !== div.innerText && c.author !== divAuthor.innerText && c.pages !== divPages.innerText && c.read !== divRead && p.push(c),p),[]);
-                  console.log(myLibrary);
+                      myLibrary = myLibrary.reduce((p,c) => (c.title !== div.innerText && c.author !== divAuthor.innerText && c.pages !== divPages.innerText && c.read !== divRead && p.push(c),p),[]);
+                      console.log(myLibrary);
                    
-                   div.remove();
+                       div.remove();
                        divAuthor.remove();
                        divPages.remove();
                        divRead.remove();
                        blankDiv.remove();
                        bookCard.remove();
-
                        toggleBtn.remove();
                        removeBtn.remove()
-                       
-                      
+                       //localStorage.removeItem('lib')                      
                        //container.style.cssText = '';
                     });
 
@@ -176,21 +166,25 @@ function addBookToLibr() {
                             divRead.textContent = 'Status: Read'
                             //divRead.style.color = '#31e61b'
                         }
-                    })  
+                    }) 
+
+                    myLibrary.forEach(function(key) {
+                      localStorage.setItem(key, JSON.stringify(inf));
+
+                      const retrieveData = localStorage.getItem(key)
+                      JSON.parse(retrieveData);
+                    })
+                    
+                    // Object.keys(localStorage).forEach(function(key) {
+                      
+                    // })
+
+                 
               }
         }
         displayBooks();
 
-        function saveToStorage() {
-          localStorage.setItem('lib', JSON.stringify(inf));
-        
-          const retrieveData = localStorage.getItem('lib')
-          const stringed = JSON.parse(retrieveData);
-              return stringed
-        }
-        saveToStorage();
-
-        if (addTitle.value.length > 0 && addAuthor.value.length > 0 && addPages.value.length > 0) {
+       if (addTitle.value.length > 0 && addAuthor.value.length > 0 && addPages.value.length > 0) {
             addAuthor.value = '';
             addTitle.value = '';
             addPages.value = '';
@@ -199,7 +193,8 @@ function addBookToLibr() {
 }
 addBookToLibr();
 
-
+  
+     
 
 //cap max length on number input
 function maxLengthCheck(object) {
