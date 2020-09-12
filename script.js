@@ -144,7 +144,14 @@ function addBookToLibr() {
                     removeBtn.addEventListener('click', (e) => {
                     //    div.removeChild(div.firstChild)
                     //    div.removeChild(removeBtn);
-                       div.remove();
+                   // myLibrary = myLibrary.filter(book => book.title !== div && book.author !== divAuthor.innerText);
+                   
+                   //myLibrary = myLibrary.filter(i => i.name === e.target);
+
+                  myLibrary = myLibrary.reduce((p,c) => (c.title !== div.innerText && c.author !== divAuthor.innerText && c.pages !== divPages.innerText && c.read !== divRead && p.push(c),p),[]);
+                  console.log(myLibrary);
+                   
+                   div.remove();
                        divAuthor.remove();
                        divPages.remove();
                        divRead.remove();
@@ -154,7 +161,7 @@ function addBookToLibr() {
                        toggleBtn.remove();
                        removeBtn.remove()
                        
-                      myLibrary = myLibrary.filter(book => book.title !== div.innerText && book.author !== divAuthor.innerText);
+                      
                        //container.style.cssText = '';
                     });
 
