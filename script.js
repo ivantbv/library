@@ -168,17 +168,12 @@ function addBookToLibr() {
                         }
                     }) 
 
-                    myLibrary.forEach(function(key) {
-                      localStorage.setItem(key, JSON.stringify(inf));
+                    myLibrary.forEach(function(book) {
+                      localStorage.setItem(`${book.author}${book.title}${book.pages}${book.read}`, JSON.stringify(book));
 
-                      const retrieveData = localStorage.getItem(key)
+                      const retrieveData = JSON.parse(localStorage.getItem(`${book.author}${book.title}`));
                       JSON.parse(retrieveData);
                     })
-                    
-                    // Object.keys(localStorage).forEach(function(key) {
-                      
-                    // })
-
                  
               }
         }

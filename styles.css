@@ -3,7 +3,6 @@ body {
   justify-content: center;
   align-items: center;
   background-color: rgba(210, 180, 140, 0.205);
-
 }
 
 h1 {
@@ -20,6 +19,7 @@ h1 {
   text-align: left;
   /* margin: 0 auto; */
 } 
+
 
 .open-button {
     background-color: #555;
@@ -260,3 +260,4 @@ input:focus {
 .notes::placeholder {
   color: white;
 }
+
