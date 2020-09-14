@@ -43,32 +43,37 @@ function openForm() {
 
 function addBookToLibr() {
     bookAdd.addEventListener('click', function() {
-           
+      const divRead = document.createElement('div');
             for (const radioBtn of addRead) {
                 if (radioBtn.checked) {
                     selectedValue = radioBtn.value;
+
+                    if (selectedValue == 'Read') {
+           divRead.style.color = '#31e61b'
+           //'#bb2b00';
+        } else if (selectedValue == 'Not read') {
+          divRead.style.color = '#bb2b00'
+          } else if (selectedValue == 'In progress') {
+            divRead.style.color = 'yellow'
+        }
+
+
                     break;
                 }
             }
            inf = new Book(`${addTitle.value}`, `by ${addAuthor.value}`, `${addPages.value} pages`, `Status: ${selectedValue}`);
 
            myLibrary.push(inf);
+          
 
-        // if (selectedValue == 'Read') {
-        //    divRead.style.color = '#bb2b00'
-        // } else if (selectedValue == 'Not read') {
+        
 
-        //   divRead.style.color = '#ffdc31';
-        // } else if (selectedValue == 'In progress') {
-        //     divRead.style.color = '#31e61b'
-        // }
-
-        function displayBooks(obj) {
+        function displayBooks() {
             if (addAuthor.value != '' && addTitle.value != '' && addPages.value != '') {
                     const div = document.createElement('div');
                     const divAuthor = document.createElement('div');
                     const divPages = document.createElement('div');
-                    const divRead = document.createElement('div');
+                    
                     const nextBtn = document.createElement('button');
                     nextBtn.classList.add('nextPage');
 
@@ -176,29 +181,25 @@ function addBookToLibr() {
                              removeBtn.remove()
                             
                              setLocalStorage();
-                              // myLibrary.forEach( book => {
-                              
-                                
-                              // })
-                              
-                              
-                        
-                           
+                                                  
                              // myLibrary.splice(myLibrary.indexOf(e), 1)
                             // console.log(myLibrary)
                           });
 
                     toggleBtn.addEventListener('click', () => {
+                      
                         if (divRead.textContent == 'Status: Read') {
                             divRead.textContent = 'Status: Not read';
-                            //setLocalStorage();
-                           // divRead.style.color = '#bb2b00'
+                            //divRead.style.color = 'red';
+                            divRead.style.color = '#bb2b00'
                         } else if (divRead.textContent == 'Status: Not read') {
                             divRead.textContent = 'Status: In progress';
                             //setLocalStorage()
+                            divRead.style.color = 'yellow'
                           //divRead.style.color = '#ffdc31';
                         } else if (divRead.textContent == 'Status: In progress') {
                             divRead.textContent = 'Status: Read';
+                            divRead.style.color = '#31e61b'
                             //setLocalStorage();
                             //divRead.style.color = '#31e61b'
                         }
