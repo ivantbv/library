@@ -2,6 +2,8 @@ let myLibrary = [];
 let btnClicked = false;
 const bookAdd = document.querySelector('.add');
 
+const addRead = document.querySelectorAll('input[name="read"]')
+
 function setLocalStorage() {
   localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
 
@@ -12,11 +14,18 @@ function setLocalStorage() {
 
 const container = document.querySelector('#book-card');
 
-function Book(title, author, pages, read) {
+function Book(title, author, pages, read, textNotes) {
     this.title = title;
       this.author = author;
       this.pages = pages;
       this.read = read;
+      [...addRead].forEach(function(i) {
+        read = i.value;
+        console.log(i.value);
+      })
+      this.textNotes = textNotes;
+
+
   }
 
 //   Book.prototype.info = function() {
@@ -24,7 +33,9 @@ function Book(title, author, pages, read) {
 // }
 
 // window.addEventListener('load', function() {
-//   localStorage.getItem('myLibrary');
+//   addBookToLibr();
+//   localStorage.getItem('myLibrary')
+
 // })
 
 function openForm() {
@@ -38,7 +49,7 @@ function openForm() {
   let addTitle = document.querySelector('#title')
   const addAuthor = document.querySelector('#author');
   const addPages = document.querySelector('#pages');
-  const addRead = document.querySelectorAll('input[name="read"]')
+  
   let selectedValue
 
 function addBookToLibr() {
@@ -56,18 +67,13 @@ function addBookToLibr() {
           } else if (selectedValue == 'In progress') {
             divRead.style.color = 'yellow'
         }
-
-
                     break;
                 }
             }
+            console.log(selectedValue);
            inf = new Book(`${addTitle.value}`, `by ${addAuthor.value}`, `${addPages.value} pages`, `Status: ${selectedValue}`);
-
-           myLibrary.push(inf);
-          
-
-        
-
+           myLibrary.push(inf);        
+            console.log(inf[0]);
         function displayBooks() {
             if (addAuthor.value != '' && addTitle.value != '' && addPages.value != '') {
                     const div = document.createElement('div');
@@ -76,21 +82,39 @@ function addBookToLibr() {
                     
                     const nextBtn = document.createElement('button');
                     nextBtn.classList.add('nextPage');
+                    
 
-                    // notesArea.addEventListener('input', (e) => {
-                    //   notesArea.textContent = e.target.value;
-                      
-                    //   const storedItem = localStorage.getItem('library')
-                    //   const saveToLocalStorage = () => {
-                    //     localStorage.setItem('library', notesArea.textContent)
-                    //   }
-                    //  saveToLocalStorage();
+                    const notesArea = document.createElement('textarea')
+                    notesArea.placeholder = 'Add notes, current page etc...';
+                    const saveNotesBtn = document.createElement('button');
+                    saveNotesBtn.textContent = 'Save Notes'
+
+                    notesArea.addEventListener('input', (e) => {
+                      notesArea.textContent = e.target.value;
+                      console.log(notesArea.textContent);
+                     // const storedItem = localStorage.getItem('myLibrary')
+
+                      // const saveToLocalStorage = () => {
+                      //   localStorage.setItem('library', notesArea.textContent)
+                      // }
+                     setLocalStorage()
   
-                    //   if (notesArea) {
-                    //     notesArea.textContent = storedItem;
-                    //    }
-                    //   saveNotesBtn.addEventListener('click', saveToLocalStorage)
-                    // });
+                      // if (notesArea) {
+                      //    notesArea.textContent = storedItem;
+                      //   }
+                    });
+                    
+                    
+                    saveNotesBtn.addEventListener('click', function() {
+                     let notesContent = document.getElementsByClassName('notes')
+                             
+                     Array.from(notesContent).forEach(i => {
+                      inf.textNotes = i.value;
+                     })
+                      console.log(inf.textNotes);
+                      //console.log(notesArea[0].value);
+                          setLocalStorage()
+                    });
                     
                     //  const nextBtn = document.getElementsByTagName('svg')
         
@@ -131,10 +155,10 @@ function addBookToLibr() {
                     bookCard.append(toggleBtn);
                     container.appendChild(blankDiv);
 
-                    const notesArea = document.createElement('textarea')
-                    notesArea.placeholder = 'Add notes, current page etc...';
                     notesArea.classList.toggle('removed')
+                    saveNotesBtn.classList.toggle('removed');
                     bookCard.appendChild(notesArea);
+                    bookCard.appendChild(saveNotesBtn);
                    
                     container.appendChild(bookCard); 
                     
@@ -149,7 +173,8 @@ function addBookToLibr() {
                         divRead.classList.toggle('removed');
 
                         notesArea.classList.toggle('notes');
-                        notesArea.classList.toggle('removed');                      
+                        notesArea.classList.toggle('removed');
+                        saveNotesBtn.classList.toggle('removed');                      
                     })      
                     
                   //   myLibrary.map(function(book) {
