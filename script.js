@@ -14,7 +14,7 @@ function setLocalStorage() {
 
 const container = document.querySelector('#book-card');
 
-function Book(title, author, pages, read, textNotes) {
+function Book(title, author, pages, read, textNotes, id) {
     this.title = title;
       this.author = author;
       this.pages = pages;
@@ -24,8 +24,7 @@ function Book(title, author, pages, read, textNotes) {
         console.log(i.value);
       })
       this.textNotes = textNotes;
-
-
+      this.id = myLibrary.length;
   }
 
 //   Book.prototype.info = function() {
@@ -73,7 +72,9 @@ function addBookToLibr() {
             console.log(selectedValue);
            inf = new Book(`${addTitle.value}`, `by ${addAuthor.value}`, `${addPages.value} pages`, `Status: ${selectedValue}`);
            myLibrary.push(inf);        
-            console.log(inf[0]);
+            for (let book in myLibrary) {
+              console.log(myLibrary[book].id);
+            }
         function displayBooks() {
             if (addAuthor.value != '' && addTitle.value != '' && addPages.value != '') {
                     const div = document.createElement('div');
@@ -107,11 +108,18 @@ function addBookToLibr() {
                     
                     saveNotesBtn.addEventListener('click', function() {
                      let notesContent = document.getElementsByClassName('notes')
-                             
-                     Array.from(notesContent).forEach(i => {
-                      inf.textNotes = i.value;
-                     })
-                      console.log(inf.textNotes);
+                       
+                      let arrayed = Array.from(notesContent);
+
+                      for(let i in myLibrary) {
+                        myLibrary[i].textNotes = notesContent[i].value;
+                        console.log(myLibrary[i].textNotes);
+                      }
+
+                    //  Array.from(notesContent).forEach(i => {
+                    //   inf.textNotes = i.value;
+                    //  })
+                      console.log(myLibrary[0].textNotes);
                       //console.log(notesArea[0].value);
                           setLocalStorage()
                     });
@@ -211,21 +219,29 @@ function addBookToLibr() {
                             // console.log(myLibrary)
                           });
 
-                    toggleBtn.addEventListener('click', () => {
+                    toggleBtn.addEventListener('click', (e) => {
                       
                         if (divRead.textContent == 'Status: Read') {
                             divRead.textContent = 'Status: Not read';
-                            //divRead.style.color = 'red';
+                            
                             divRead.style.color = '#bb2b00'
+                            inf.read = 'Status: Not read'
+                            console.log(e.target.value)
+                            setLocalStorage();
+                            
+
                         } else if (divRead.textContent == 'Status: Not read') {
                             divRead.textContent = 'Status: In progress';
-                            //setLocalStorage()
+                            console.log(e.target.value)
                             divRead.style.color = 'yellow'
-                          //divRead.style.color = '#ffdc31';
+                            inf.read = 'Status: In progress'
+                            setLocalStorage()
                         } else if (divRead.textContent == 'Status: In progress') {
                             divRead.textContent = 'Status: Read';
                             divRead.style.color = '#31e61b'
-                            //setLocalStorage();
+                            inf.read = 'Status: Read';
+                            
+                            setLocalStorage();
                             //divRead.style.color = '#31e61b'
                         }
                     })               
