@@ -214,6 +214,32 @@ input:focus {
   outline: none;
 }
 
+.save-notes {
+  position: relative;
+  top: -95px;
+
+  border: none;
+  box-shadow:inset 0px -3px 7px 0px #7ec2e2bb;
+  /* background-color:transparent; */
+  border-radius: 3px;
+	display:inline-block;
+	cursor:pointer;
+	font-family:Arial;
+	font-size:11.4px;
+	padding:5px 16px;
+}
+
+.save-notes:hover {
+  background-color:transparent;
+  color: rgb(245, 245, 245);
+}
+
+.save-notes:active {
+  border: none;
+  outline: none;
+}
+
+
 .statusRead {
   font-family: monospace;
   padding-top: 10px;

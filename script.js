@@ -1,41 +1,31 @@
 let myLibrary = [];
-let btnClicked = false;
 const bookAdd = document.querySelector('.add');
-
+const form = document.querySelector('.form-container');
 const addRead = document.querySelectorAll('input[name="read"]')
+const container = document.querySelector('#book-card');
 
 function setLocalStorage() {
   localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
 
- var lib =  localStorage.getItem('myLibrary');
+ let lib =  localStorage.getItem('myLibrary');
   JSON.parse(lib);
-  // localStorage.removeItem('library')
- }         
-
-const container = document.querySelector('#book-card');
+ }
 
 function Book(title, author, pages, read, textNotes, id) {
     this.title = title;
       this.author = author;
       this.pages = pages;
-      this.read = read;
+      this.read = `Status: ${form.read.value}`;
       [...addRead].forEach(function(i) {
         read = i.value;
-        console.log(i.value);
+        //console.log(i.value);
       })
       this.textNotes = textNotes;
       this.id = myLibrary.length;
   }
-
 //   Book.prototype.info = function() {
 //     return `${this.title} ${this.author} ${this.pages} ${this.read}`
 // }
-
-// window.addEventListener('load', function() {
-//   addBookToLibr();
-//   localStorage.getItem('myLibrary')
-
-// })
 
 function openForm() {
     document.getElementById("myForm").style.display = "block";
@@ -48,8 +38,9 @@ function openForm() {
   let addTitle = document.querySelector('#title')
   const addAuthor = document.querySelector('#author');
   const addPages = document.querySelector('#pages');
+  const notesContent = document.getElementsByClassName('notes');
   
-  let selectedValue
+let selectedValue
 
 function addBookToLibr() {
     bookAdd.addEventListener('click', function() {
@@ -69,14 +60,15 @@ function addBookToLibr() {
                     break;
                 }
             }
-            console.log(selectedValue);
+
            inf = new Book(`${addTitle.value}`, `by ${addAuthor.value}`, `${addPages.value} pages`, `Status: ${selectedValue}`);
            myLibrary.push(inf);        
             for (let book in myLibrary) {
               console.log(myLibrary[book].id);
             }
+
         function displayBooks() {
-            if (addAuthor.value != '' && addTitle.value != '' && addPages.value != '') {
+         if (addAuthor.value != '' && addTitle.value != '' && addPages.value != '') {
                     const div = document.createElement('div');
                     const divAuthor = document.createElement('div');
                     const divPages = document.createElement('div');
@@ -84,54 +76,34 @@ function addBookToLibr() {
                     const nextBtn = document.createElement('button');
                     nextBtn.classList.add('nextPage');
                     
-
                     const notesArea = document.createElement('textarea')
                     notesArea.placeholder = 'Add notes, current page etc...';
                     const saveNotesBtn = document.createElement('button');
                     saveNotesBtn.textContent = 'Save Notes'
-
-                    notesArea.addEventListener('input', (e) => {
-                      notesArea.textContent = e.target.value;
-                      console.log(notesArea.textContent);
-                     // const storedItem = localStorage.getItem('myLibrary')
-
-                      // const saveToLocalStorage = () => {
-                      //   localStorage.setItem('library', notesArea.textContent)
-                      // }
-                     setLocalStorage()
-  
-                      // if (notesArea) {
-                      //    notesArea.textContent = storedItem;
-                      //   }
-                    });
+                    saveNotesBtn.classList.add('save-notes');
                     
-                    
-                    saveNotesBtn.addEventListener('click', function() {
-                     let notesContent = document.getElementsByClassName('notes')
-                       
-                      let arrayed = Array.from(notesContent);
-
-                      for(let i in myLibrary) {
-                        myLibrary[i].textNotes = notesContent[i].value;
-                        console.log(myLibrary[i].textNotes);
-                      }
-
-                    //  Array.from(notesContent).forEach(i => {
-                    //   inf.textNotes = i.value;
-                    //  })
-                      console.log(myLibrary[0].textNotes);
-                      //console.log(notesArea[0].value);
-                          setLocalStorage()
-                    });
-                    
-                    //  const nextBtn = document.getElementsByTagName('svg')
-        
-                    //nextBtn.style.cssText = 'visibility: visible;'
-                   nextBtn.textContent = '>';
-                  
                     const bookCard = document.createElement('div');
                     bookCard.classList.add('styleCards');
                     bookCard.classList.add('paper');
+                    
+                    bookCard.dataset.index = inf.id;
+
+                    notesArea.addEventListener('input', (e) => {
+                     notesArea.textContent = e.target.value;                
+                    });
+                    
+                  saveNotesBtn.addEventListener('click', function() {                        
+                        myLibrary[`${bookCard.dataset.index}`].textNotes = notesArea.value;
+                        setLocalStorage();
+                      });
+                      nextBtn.textContent = '>';
+                    //  const nextBtn = document.getElementsByTagName('svg')
+                    //nextBtn.style.cssText = 'visibility: visible;'
+                   
+                    // myLibrary.forEach(book => {
+                    //   bookCard.dataset.index = myLibrary[book].id
+                    // })
+                   // document.querySelectorAll(`div[data-ind='${1}']`);
 
                     div.className += 'toBeStyled'
                     div.textContent = `${inf.title.toUpperCase()}`
@@ -168,13 +140,10 @@ function addBookToLibr() {
                     bookCard.appendChild(notesArea);
                     bookCard.appendChild(saveNotesBtn);
                    
-                    container.appendChild(bookCard); 
-                    
-                    //localStorage.setItem('lib', container)
+                    container.appendChild(bookCard);
 
                     nextBtn.addEventListener('click', () => {
                         toggleBtn.classList.toggle('removed');
-                        //bookCard.classList.add('removed')
                         div.classList.toggle('removed');
                         divAuthor.classList.toggle('removed');
                         divPages.classList.toggle('removed');
@@ -183,27 +152,14 @@ function addBookToLibr() {
                         notesArea.classList.toggle('notes');
                         notesArea.classList.toggle('removed');
                         saveNotesBtn.classList.toggle('removed');                      
-                    })      
-                    
-                  //   myLibrary.map(function(book) {
-                                         
-                  //   localStorage.setItem(`${book.author}${book.title}${book.pages}${book.read}`, JSON.stringify(book));
-
-                  //   JSON.parse(localStorage.getItem(`${book.author}${book.title}${book.pages}${book.read}`));
-                     
-                    
-                  // })
-                  
-                                  setLocalStorage();
+                    })
+                    setLocalStorage();
 
                     blankDiv.style.cssText = 'display: flex; align-items: center;'
                     toggleBtn.style.cssText = 'position: relative;'
                     removeBtn.addEventListener('click', (e) => {
-                        // myLibrary = myLibrary.filter(book => book.title !== div && book.author !== divAuthor.innerText);
-                          
-                            myLibrary = myLibrary.reduce((p,c) => (c.title !== div.innerText && c.author !== divAuthor.innerText && c.pages !== divPages.innerText && c.read !== divRead && p.push(c),p),[]);
-                            console.log(myLibrary);
-                         
+                            myLibrary = myLibrary.reduce((p,c) => (c.title !== div.innerText && c.author !== divAuthor.innerText && c.pages !== divPages.innerText && c.read !== divRead && c.textNotes !== notesArea.innerHTML && p.push(c),p),[]);
+                                                 
                              div.remove();
                              divAuthor.remove();
                              divPages.remove();
@@ -212,11 +168,7 @@ function addBookToLibr() {
                              bookCard.remove();
                              toggleBtn.remove();
                              removeBtn.remove()
-                            
-                             setLocalStorage();
-                                                  
-                             // myLibrary.splice(myLibrary.indexOf(e), 1)
-                            // console.log(myLibrary)
+                             setLocalStorage();               
                           });
 
                     toggleBtn.addEventListener('click', (e) => {
@@ -225,29 +177,35 @@ function addBookToLibr() {
                             divRead.textContent = 'Status: Not read';
                             
                             divRead.style.color = '#bb2b00'
-                            inf.read = 'Status: Not read'
-                            console.log(e.target.value)
+                              myLibrary[`${bookCard.dataset.index}`].read = 'Status: Not read'
                             setLocalStorage();
                             
-
                         } else if (divRead.textContent == 'Status: Not read') {
                             divRead.textContent = 'Status: In progress';
-                            console.log(e.target.value)
+                            
                             divRead.style.color = 'yellow'
-                            inf.read = 'Status: In progress'
+                            myLibrary[`${bookCard.dataset.index}`].read = 'Status: In progress'
+                            
                             setLocalStorage()
                         } else if (divRead.textContent == 'Status: In progress') {
                             divRead.textContent = 'Status: Read';
-                            divRead.style.color = '#31e61b'
-                            inf.read = 'Status: Read';
-                            
+                            divRead.style.color = '#31e61b'                 
+                            myLibrary[`${bookCard.dataset.index}`].read = 'Status: Read'
+
+                            // for(let i in myLibrary) {
+                            //   myLibrary[i].read = 'Status: Read'
+                            //   console.log(myLibrary[i].read);
+                            // }
                             setLocalStorage();
-                            //divRead.style.color = '#31e61b'
                         }
                     })               
+              }  
+              else if (addAuthor.value == '' || addTitle.value == '' || addPages.value == '') {
+                //stop button from working
+                return
               }
             setLocalStorage();
-        }
+        } 
         displayBooks();
 
        if (addTitle.value.length > 0 && addAuthor.value.length > 0 && addPages.value.length > 0) {
@@ -256,15 +214,8 @@ function addBookToLibr() {
             addPages.value = '';
         }
     })
-
-    
 }
-addBookToLibr();
-
-// if(localStorage.getItem('myLibrary')) {
-//   myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
-// } 
-     
+addBookToLibr();     
 
 //cap max length on number input
 function maxLengthCheck(object) {
@@ -282,7 +233,6 @@ function maxLengthCheck(object) {
       if(theEvent.preventDefault) theEvent.preventDefault();
     }
   }
-
     //capitalize each first letter on every word (for the authors)
   function titleCase(str) {
     let splitStr = str.toLowerCase().split(' ');
@@ -291,12 +241,3 @@ function maxLengthCheck(object) {
     }
     return splitStr.join(' '); 
  }
-
-
-// function btnDisabled(btn) {
-//    //return  !addTitle.value.length || !addAuthor.value.length || !addPages.value.length ?   bookAdd.disabled = true :  bookAdd.disabled = false;
-//     if (addTitle.value.length > 0 || addAuthor.value.length > 0 || addPages.value.length > 0) { 
-//        btn.disabled = false;
-//     }
-//     }
-//     btnDisabled(bookAdd);
